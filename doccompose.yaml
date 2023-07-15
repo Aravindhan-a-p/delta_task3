@@ -1,0 +1,18 @@
+services:
+  db:
+    image: nouchka/sqlite3:latest
+    ports:
+      - "8191:8191"
+    environment:
+      - SQLITE3_DB=userdata.db
+  web:
+    build: .
+    command: python3.11 server.py 
+    ports:
+      - "8000:8000"
+    volumes:
+      - data:/app
+    depends_on:
+      - db
+volumes:
+  data:
